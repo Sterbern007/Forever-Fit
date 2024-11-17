@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - Forever Fit</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #38a1db;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+        }
+        #chatBox {
+            height: 300px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            overflow-y: scroll;
+            background-color: #fff;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            max-width: 400px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #38a1db;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #1e7baf;
+        }
+        header { 
+            background-color: #38a1db; 
+            color: #fff; 
+            padding: 20px; 
+            text-align: center; 
+        } 
+            nav ul { 
+                list-style-type: none; 
+                margin: 0; padding: 0; 
+                display: flex; 
+                justify-content: center; 
+                background-color: #333; 
+            } 
+            nav ul li { 
+                margin: 0 10px; 
+            } 
+            nav ul li a { 
+                color: #fff; 
+                padding: 14px 20px; 
+                text-decoration: none;
+                display: block; 
+            } 
+            nav ul li a:hover { 
+                background-color: #ddd; 
+                color: #000;
+            }
+            .user-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.message-content {
+    background-color: #e9ecef;
+    padding: 10px;
+    border-radius: 5px;
+    max-width: 80%;
+}
+    </style>
+</head>
+<body>
+    <header> 
+        <h1>FOREVER FIT CHAT</h1> 
+        <nav> 
+            <ul> 
+                <li><a href="register.html" onclick="showSection('register')">Register</a></li> 
+                    <li><a href="login.html" onclick="showSection('login')">Login</a></li> 
+                    <li><a href="home.html" onclick="showSection('home')">Home</a></li>
+                    <li><a href="discussion.html" onclick="showSection('discussions')">Discussions</a></li>
+            </ul> 
+        </nav>
+    </header>
+    <main>
+        <div id="chatBox"></div>
+        <form id="chatForm">
+            <input type="text" id="chatMessage" placeholder="Type a message..." required>
+            <button type="submit">Send</button>
+        </form>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatForm = document.getElementById('chatForm');
+            const chatBox = document.getElementById('chatBox');
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+            // Redirect to login if not logged in
+            if (!currentUser) {
+                alert('You must be logged in to access the chat!');
+                window.location.href = 'login.html';
+            }
+
+            chatForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const message = document.getElementById('chatMessage').value;
+                const chatMessage = document.createElement('p');
+                chatMessage.textContent = `${currentUser.username}: ${message}`;
+                chatBox.appendChild(chatMessage);
+                chatForm.reset();
+                chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to the latest message
+            });
+        });
+    </script>
+</body>
+</html>
+
